@@ -1,10 +1,14 @@
 Download\ metadata.log
+hudson.model.UpdateCenter.xml
+hudson.scm.CVSSCM.xml
 identity.key.enc
 keystore
 .owner
 plugins
+queue.xml
 *.bak
 secret.*
 secrets
+updates
 userContent
 users
