@@ -1,0 +1,10 @@
+Download\ metadata.log
+identity.key.enc
+keystore
+.owner
+plugins
+*.bak
+secret.*
+secrets
+userContent
+users
