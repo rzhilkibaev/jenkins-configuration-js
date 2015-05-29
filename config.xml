@@ -80,7 +80,7 @@
       <gridBuilder class="au.com.centrumsystems.hudson.plugin.buildpipeline.DownstreamProjectGridBuilder">
         <firstJob>docker build-src-all</firstJob>
       </gridBuilder>
-      <noOfDisplayedBuilds>1</noOfDisplayedBuilds>
+      <noOfDisplayedBuilds>3</noOfDisplayedBuilds>
       <buildViewTitle></buildViewTitle>
       <consoleOutputLinkStyle>Lightbox</consoleOutputLinkStyle>
       <cssUrl></cssUrl>

@@ -31,22 +31,30 @@
   <builders>
     <hudson.tasks.Shell>
       <command># create data container
-BUILD_DATA_CONTAINER_NAME=$(docker run -d debian:wheezy /bin/true)
-echo &quot;Created build data container: $BUILD_DATA_CONTAINER_NAME&quot;
-
+DATA_CONTAINER=$(docker run -d debian:wheezy /bin/true)
+echo &quot;DATA_CONTAINER=$DATA_CONTAINER&quot; &gt;&gt; env.properties
+echo &quot;BRANCH=$BRANCH&quot; &gt;&gt; env.properties
 </command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <hudson.tasks.BuildTrigger>
-      <childProjects>docker repo-postgres</childProjects>
-      <threshold>
-        <name>UNSTABLE</name>
-        <ordinal>1</ordinal>
-        <color>YELLOW</color>
-        <completeBuild>true</completeBuild>
-      </threshold>
-    </hudson.tasks.BuildTrigger>
+    <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.26">
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+          <configs>
+            <hudson.plugins.parameterizedtrigger.FileBuildParameters>
+              <propertiesFile>env.properties</propertiesFile>
+              <failTriggerOnMissing>true</failTriggerOnMissing>
+              <useMatrixChild>false</useMatrixChild>
+              <onlyExactRuns>false</onlyExactRuns>
+            </hudson.plugins.parameterizedtrigger.FileBuildParameters>
+          </configs>
+          <projects>docker repo-postgres</projects>
+          <condition>UNSTABLE_OR_BETTER</condition>
+          <triggerWithNoParameters>false</triggerWithNoParameters>
+        </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.BuildTrigger>
   </publishers>
   <buildWrappers/>
 </project>
