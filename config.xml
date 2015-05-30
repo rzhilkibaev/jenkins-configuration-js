@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
   <disabledAdministrativeMonitors/>
-  <version>1.612</version>
+  <version>1.615</version>
   <numExecutors>5</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
@@ -79,6 +79,7 @@
       <properties class="hudson.model.View$PropertyList"/>
       <gridBuilder class="au.com.centrumsystems.hudson.plugin.buildpipeline.DownstreamProjectGridBuilder">
         <firstJob>docker build-src-all</firstJob>
+        <firstJobLink>job/docker%20build-src-all/</firstJobLink>
       </gridBuilder>
       <noOfDisplayedBuilds>3</noOfDisplayedBuilds>
       <buildViewTitle></buildViewTitle>

@@ -3,23 +3,13 @@
   <actions/>
   <description></description>
   <logRotator class="hudson.tasks.LogRotator">
-    <daysToKeep>-1</daysToKeep>
-    <numToKeep>1</numToKeep>
+    <daysToKeep>3</daysToKeep>
+    <numToKeep>3</numToKeep>
     <artifactDaysToKeep>-1</artifactDaysToKeep>
     <artifactNumToKeep>-1</artifactNumToKeep>
   </logRotator>
   <keepDependencies>false</keepDependencies>
-  <properties>
-    <hudson.model.ParametersDefinitionProperty>
-      <parameterDefinitions>
-        <hudson.model.StringParameterDefinition>
-          <name>BRANCH</name>
-          <description>name of the branch to build (trunk, branches/bugfix, ...)</description>
-          <defaultValue>trunk</defaultValue>
-        </hudson.model.StringParameterDefinition>
-      </parameterDefinitions>
-    </hudson.model.ParametersDefinitionProperty>
-  </properties>
+  <properties/>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
@@ -31,10 +21,14 @@
   <builders>
     <hudson.tasks.Shell>
       <command># create data container
-DATA_CONTAINER=$(docker run -d debian:wheezy /bin/true)
+DATA_CONTAINER=$(docker run -d -v /opt/jrs debian:wheezy /bin/true)
 echo &quot;DATA_CONTAINER=$DATA_CONTAINER&quot; &gt;&gt; env.properties
-echo &quot;BRANCH=$BRANCH&quot; &gt;&gt; env.properties
-</command>
+
+# build
+docker run --rm --volumes-from $DATA_CONTAINER\
+  rzhilkibaev/docker-jrs-builder \
+  https://svnserver.jaspersoft.com/jasperserver/branches/build-improvement \
+  https://svnserver.jaspersoft.com/jasperserver-pro/branches/build-improvement-pro</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
