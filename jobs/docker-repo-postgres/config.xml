@@ -46,7 +46,7 @@ echo &quot;DATA_CONTAINER=$DATA_CONTAINER&quot; &gt;&gt; env.properties</command
               <onlyExactRuns>false</onlyExactRuns>
             </hudson.plugins.parameterizedtrigger.FileBuildParameters>
           </configs>
-          <projects>docker clean</projects>
+          <projects>docker-clean</projects>
           <condition>SUCCESS</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>
         </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>

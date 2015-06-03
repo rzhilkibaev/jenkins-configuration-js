@@ -78,7 +78,7 @@
       <filterQueue>false</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
       <gridBuilder class="au.com.centrumsystems.hudson.plugin.buildpipeline.DownstreamProjectGridBuilder">
-        <firstJob>docker build-src-all</firstJob>
+        <firstJob>docker-build-src-all</firstJob>
         <firstJobLink>job/docker%20build-src-all/</firstJobLink>
       </gridBuilder>
       <noOfDisplayedBuilds>3</noOfDisplayedBuilds>

@@ -50,7 +50,7 @@ docker run --rm --volumes-from $DATA_CONTAINER /bin/ls -lA /opt/jrs</command>
               <onlyExactRuns>false</onlyExactRuns>
             </hudson.plugins.parameterizedtrigger.FileBuildParameters>
           </configs>
-          <projects>docker repo-postgres</projects>
+          <projects>docker-repo-postgres</projects>
           <condition>UNSTABLE_OR_BETTER</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>
         </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
