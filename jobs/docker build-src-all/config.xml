@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description></description>
+  <description>branches/build-improvement</description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>3</daysToKeep>
     <numToKeep>3</numToKeep>
@@ -16,7 +16,11 @@
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <jdk>(Default)</jdk>
-  <triggers/>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>@midnight</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
   <concurrentBuild>true</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
@@ -25,10 +29,13 @@ DATA_CONTAINER=$(docker run -d -v /opt/jrs debian:wheezy /bin/true)
 echo &quot;DATA_CONTAINER=$DATA_CONTAINER&quot; &gt;&gt; env.properties
 
 # build
-docker run --rm --volumes-from $DATA_CONTAINER\
+docker run --rm --volumes-from $DATA_CONTAINER \
   rzhilkibaev/docker-jrs-builder \
   https://svnserver.jaspersoft.com/jasperserver/branches/build-improvement \
-  https://svnserver.jaspersoft.com/jasperserver-pro/branches/build-improvement-pro</command>
+  https://svnserver.jaspersoft.com/jasperserver-pro/branches/build-improvement-pro
+  
+# debug output
+docker run --rm --volumes-from $DATA_CONTAINER /bin/ls -lA /opt/jrs</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
