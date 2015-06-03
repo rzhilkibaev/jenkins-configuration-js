@@ -35,7 +35,7 @@ docker run --rm --volumes-from $DATA_CONTAINER \
   https://svnserver.jaspersoft.com/jasperserver-pro/branches/build-improvement-pro
   
 # debug output
-docker run --rm --volumes-from $DATA_CONTAINER /bin/ls -lA /opt/jrs</command>
+docker run --rm --volumes-from $DATA_CONTAINER debian:wheezy /bin/ls -lA /opt/jrs</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
