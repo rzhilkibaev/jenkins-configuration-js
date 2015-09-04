@@ -1,5 +1,4 @@
-Download\ metadata.log
-Fingerprint\ cleanup.log
+*.log
 hudson.model.UpdateCenter.xml
 hudson.scm.CVSSCM.xml
 identity.key.enc
@@ -14,7 +13,6 @@ updates
 userContent
 users
 workspace
-Workspace\ clean-up.log
 builds
 lastStable
 lastSuccessful
