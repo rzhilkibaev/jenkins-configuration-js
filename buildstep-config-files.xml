@@ -10,9 +10,10 @@
         <content>JRS_BUILD_ID=$1
 DB_TYPE=$2
 
-IMAGE_NAME=jrs-$DB_TYPE-$JRS_BUILD_ID
+IMAGE_NAME=localhost:5000/jrs-$DB_TYPE-$JRS_BUILD_ID
 
 docker-jrs-builder.sh $JRS_BUILD_ID create-db-image $DB_TYPE $IMAGE_NAME
+docker push $IMAGE_NAME
 </content>
         <args>
           <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
