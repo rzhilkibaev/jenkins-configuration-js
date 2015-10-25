@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>branches/build-improvement</description>
+  <description></description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>3</daysToKeep>
     <numToKeep>3</numToKeep>
@@ -12,45 +12,36 @@
   <properties/>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
-  <disabled>true</disabled>
+  <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <jdk>(Default)</jdk>
-  <triggers>
-    <hudson.triggers.TimerTrigger>
-      <spec>@midnight</spec>
-    </hudson.triggers.TimerTrigger>
-  </triggers>
-  <concurrentBuild>true</concurrentBuild>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.tasks.Shell>
-      <command># create data container
-DATA_CONTAINER=$(docker run -d -v /opt/jrs debian:wheezy /bin/true)
-echo &quot;DATA_CONTAINER=$DATA_CONTAINER&quot; &gt;&gt; env.properties
-
-# build
-docker run --rm --volumes-from $DATA_CONTAINER \
-  rzhilkibaev/docker-jrs-builder \
-  https://svnserver.jaspersoft.com/jasperserver/branches/build-improvement \
-  https://svnserver.jaspersoft.com/jasperserver-pro/branches/build-improvement-pro
-  
-# debug output
-docker run --rm --volumes-from $DATA_CONTAINER debian:wheezy /bin/ls -lA /opt/jrs</command>
-    </hudson.tasks.Shell>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.2.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1445752767740</buildStepId>
+      <buildStepArgs>
+        <string>azure</string>
+        <string>jade-ce-azure</string>
+        <string>jade-pro-azure</string>
+      </buildStepArgs>
+      <tokenized>false</tokenized>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
   </builders>
   <publishers>
-    <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.28">
+    <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.29">
       <configs>
         <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
           <configs>
             <hudson.plugins.parameterizedtrigger.FileBuildParameters>
-              <propertiesFile>env.properties</propertiesFile>
+              <propertiesFile>dependent-build-parameters</propertiesFile>
               <failTriggerOnMissing>true</failTriggerOnMissing>
               <useMatrixChild>false</useMatrixChild>
               <onlyExactRuns>false</onlyExactRuns>
             </hudson.plugins.parameterizedtrigger.FileBuildParameters>
           </configs>
-          <projects>docker-repo-postgres</projects>
+          <projects>docker-jrs-build</projects>
           <condition>UNSTABLE_OR_BETTER</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>
         </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>

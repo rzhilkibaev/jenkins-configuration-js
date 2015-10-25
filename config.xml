@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
   <disabledAdministrativeMonitors/>
-  <version>1.615</version>
+  <version>1.634</version>
   <numExecutors>5</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
@@ -71,19 +71,19 @@
       <filterQueue>false</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
     </hudson.model.AllView>
-    <au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView plugin="build-pipeline-plugin@1.4.7">
+    <au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView plugin="build-pipeline-plugin@1.4.8">
       <owner class="hudson" reference="../../.."/>
-      <name>trunk</name>
-      <filterExecutors>false</filterExecutors>
-      <filterQueue>false</filterQueue>
+      <name>azure</name>
+      <filterExecutors>true</filterExecutors>
+      <filterQueue>true</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
       <gridBuilder class="au.com.centrumsystems.hudson.plugin.buildpipeline.DownstreamProjectGridBuilder">
-        <firstJob>docker-build-src-all</firstJob>
-        <firstJobLink>job/docker%20build-src-all/</firstJobLink>
+        <firstJob>docker-jrs-build-azure</firstJob>
+        <firstJobLink>view/azure/job/docker-jrs-build-azure/</firstJobLink>
       </gridBuilder>
       <noOfDisplayedBuilds>3</noOfDisplayedBuilds>
-      <buildViewTitle></buildViewTitle>
-      <consoleOutputLinkStyle>Lightbox</consoleOutputLinkStyle>
+      <buildViewTitle>azure</buildViewTitle>
+      <consoleOutputLinkStyle>New Window</consoleOutputLinkStyle>
       <cssUrl></cssUrl>
       <triggerOnlyLatestJob>false</triggerOnlyLatestJob>
       <alwaysAllowManualTrigger>false</alwaysAllowManualTrigger>
@@ -91,7 +91,7 @@
       <showPipelineParametersInHeaders>false</showPipelineParametersInHeaders>
       <startsWithParameters>false</startsWithParameters>
       <refreshFrequency>3</refreshFrequency>
-      <showPipelineDefinitionHeader>false</showPipelineDefinitionHeader>
+      <showPipelineDefinitionHeader>true</showPipelineDefinitionHeader>
     </au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView>
   </views>
   <primaryView>All</primaryView>

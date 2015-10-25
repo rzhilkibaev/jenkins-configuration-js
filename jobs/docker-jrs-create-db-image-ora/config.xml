@@ -13,7 +13,7 @@
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
         <hudson.model.StringParameterDefinition>
-          <name>DATA_CONTAINER</name>
+          <name>JRS_BUILD_ID</name>
           <description></description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
@@ -27,27 +27,26 @@
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <jdk>(Default)</jdk>
   <triggers/>
-  <concurrentBuild>true</concurrentBuild>
+  <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.tasks.Shell>
-      <command>echo &quot;Using data container: $DATA_CONTAINER&quot;
-echo &quot;DATA_CONTAINER=$DATA_CONTAINER&quot; &gt;&gt; env.properties</command>
-    </hudson.tasks.Shell>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.2.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1445736163289</buildStepId>
+      <buildStepArgs>
+        <string>$JRS_BUILD_ID</string>
+        <string>ora</string>
+      </buildStepArgs>
+      <tokenized>false</tokenized>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
   </builders>
   <publishers>
-    <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.26">
+    <hudson.plugins.parameterizedtrigger.BuildTrigger plugin="parameterized-trigger@2.29">
       <configs>
         <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
           <configs>
-            <hudson.plugins.parameterizedtrigger.FileBuildParameters>
-              <propertiesFile>env.properties</propertiesFile>
-              <failTriggerOnMissing>true</failTriggerOnMissing>
-              <useMatrixChild>false</useMatrixChild>
-              <onlyExactRuns>false</onlyExactRuns>
-            </hudson.plugins.parameterizedtrigger.FileBuildParameters>
+            <hudson.plugins.parameterizedtrigger.CurrentBuildParameters/>
           </configs>
-          <projects>docker-clean</projects>
-          <condition>SUCCESS</condition>
+          <projects>docker-jrs-create-db-image-mysql</projects>
+          <condition>ALWAYS</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>
         </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
       </configs>

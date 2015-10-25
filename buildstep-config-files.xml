@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<org.jenkinsci.plugins.managedscripts.ScriptBuildStepConfigProvider plugin="managed-scripts@1.2.1">
+  <configs>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1445736163289</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1445736163289</id>
+        <name>docker-jrs-builder-create-db-image</name>
+        <comment></comment>
+        <content>JRS_BUILD_ID=$1
+DB_TYPE=$2
+
+IMAGE_NAME=jrs-$DB_TYPE-$JRS_BUILD_ID
+
+docker-jrs-builder.sh $JRS_BUILD_ID create-db-image $DB_TYPE $IMAGE_NAME
+</content>
+        <args>
+          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+            <name>JRS_BUILD_ID</name>
+          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+            <name>DB_TYPE</name>
+          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+        </args>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1445753776652</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1445753776652</id>
+        <name>docker-jrs-builder-build</name>
+        <comment></comment>
+        <content>JRS_BUILD_ID=$1
+
+docker-jrs-builder.sh $JRS_BUILD_ID build
+</content>
+        <args>
+          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+            <name>JRS_BUILD_ID</name>
+          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+        </args>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1445752767740</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1445752767740</id>
+        <name>docker-jrs-builder-init</name>
+        <comment></comment>
+        <content>BRANCH_NAME=$1
+BRANCH_CE=$2
+BRANCH_PRO=$3
+JRS_BUILD_ID=$BRANCH_NAME-$BUILD_ID
+
+docker-jrs-builder.sh $JRS_BUILD_ID init $BRANCH_CE $BRANCH_PRO
+
+# Save vars to file because passing predefined parameters doesn&apos;t work with variables declared during the build
+echo JRS_BUILD_ID=$JRS_BUILD_ID &gt; dependent-build-parameters
+</content>
+        <args>
+          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+            <name>BRANCH_NAME</name>
+          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+            <name>BRANCH_CE</name>
+          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+            <name>BRANCH_PRO</name>
+          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+        </args>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1445754874305</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1445754874305</id>
+        <name>docker-jrs-builder-clean</name>
+        <comment></comment>
+        <content>JRS_BUILD_ID=$1
+
+docker-jrs-builder.sh $JRS_BUILD_ID clean
+</content>
+        <args>
+          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+            <name>JRS_BUILD_ID</name>
+          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+        </args>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+  </configs>
+</org.jenkinsci.plugins.managedscripts.ScriptBuildStepConfigProvider>

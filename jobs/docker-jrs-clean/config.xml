@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Remove docker containers</description>
+  <description></description>
   <logRotator class="hudson.tasks.LogRotator">
     <daysToKeep>3</daysToKeep>
     <numToKeep>3</numToKeep>
@@ -13,7 +13,7 @@
     <hudson.model.ParametersDefinitionProperty>
       <parameterDefinitions>
         <hudson.model.StringParameterDefinition>
-          <name>DATA_CONTAINER</name>
+          <name>JRS_BUILD_ID</name>
           <description></description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
@@ -27,12 +27,15 @@
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <jdk>(Default)</jdk>
   <triggers/>
-  <concurrentBuild>true</concurrentBuild>
+  <concurrentBuild>false</concurrentBuild>
   <builders>
-    <hudson.tasks.Shell>
-      <command># remove data container with volumes
-docker rm --volumes $DATA_CONTAINER</command>
-    </hudson.tasks.Shell>
+    <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.2.1">
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1445754874305</buildStepId>
+      <buildStepArgs>
+        <string>$JRS_BUILD_ID</string>
+      </buildStepArgs>
+      <tokenized>false</tokenized>
+    </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
   </builders>
   <publishers/>
   <buildWrappers/>
