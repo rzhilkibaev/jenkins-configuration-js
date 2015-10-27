@@ -26,9 +26,9 @@
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.2.1">
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1445752767740</buildStepId>
       <buildStepArgs>
-        <string>azure</string>
-        <string>jade-ce-azure</string>
-        <string>jade-pro-azure</string>
+        <string>trunk</string>
+        <string>trunk</string>
+        <string>trunk</string>
       </buildStepArgs>
       <tokenized>false</tokenized>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>

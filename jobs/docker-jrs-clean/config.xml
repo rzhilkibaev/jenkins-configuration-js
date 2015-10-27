@@ -27,7 +27,7 @@
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <jdk>(Default)</jdk>
   <triggers/>
-  <concurrentBuild>false</concurrentBuild>
+  <concurrentBuild>true</concurrentBuild>
   <builders>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.2.1">
       <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1445754874305</buildStepId>

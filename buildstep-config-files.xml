@@ -14,6 +14,7 @@ IMAGE_NAME=localhost:5000/jrs-$DB_TYPE-$JRS_BUILD_ID
 
 docker-jrs-builder.sh $JRS_BUILD_ID create-db-image $DB_TYPE $IMAGE_NAME
 docker push $IMAGE_NAME
+docker rmi $IMAGE_NAME
 </content>
         <args>
           <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
@@ -51,7 +52,8 @@ docker-jrs-builder.sh $JRS_BUILD_ID build
         <content>BRANCH_NAME=$1
 BRANCH_CE=$2
 BRANCH_PRO=$3
-JRS_BUILD_ID=$BRANCH_NAME-$BUILD_ID
+DATE=$(date +%Y-%m-%d)
+JRS_BUILD_ID=$BRANCH_NAME-$DATE
 
 docker-jrs-builder.sh $JRS_BUILD_ID init $BRANCH_CE $BRANCH_PRO
 
