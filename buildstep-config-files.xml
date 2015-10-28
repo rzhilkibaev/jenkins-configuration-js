@@ -2,6 +2,20 @@
 <org.jenkinsci.plugins.managedscripts.ScriptBuildStepConfigProvider plugin="managed-scripts@1.2.1">
   <configs>
     <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1446054254401</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1446054254401</id>
+        <name>GET JSON</name>
+        <comment></comment>
+        <content>curl --silent -X GET -H &quot;Content-type: application/json&quot; $1 | python -m json.tool</content>
+        <args>
+          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+            <name>URL</name>
+          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+        </args>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
       <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1445736163289</string>
       <org.jenkinsci.plugins.managedscripts.ScriptConfig>
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1445736163289</id>
