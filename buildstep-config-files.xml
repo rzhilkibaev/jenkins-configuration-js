@@ -21,14 +21,21 @@
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1445736163289</id>
         <name>docker-jrs-builder-create-db-image</name>
         <comment></comment>
-        <content>JRS_BUILD_ID=$1
+        <content>set -e
+
+JRS_BUILD_ID=$1
 DB_TYPE=$2
+BRANCH_NAME=$3
+DATE=$4
 
-IMAGE_NAME=localhost:5000/jrs-$DB_TYPE-$JRS_BUILD_ID
+IMAGE_NAME=localhost:5000/jrs-$DB_TYPE-$BRANCH_NAME
 
-docker-jrs-builder.sh $JRS_BUILD_ID create-db-image $DB_TYPE $IMAGE_NAME
-docker push $IMAGE_NAME
-docker rmi $IMAGE_NAME
+docker-jrs-builder.sh $JRS_BUILD_ID create-db-image $DB_TYPE $IMAGE_NAME:$DATE
+docker tag -f $IMAGE_NAME:$DATE $IMAGE_NAME:latest
+docker push $IMAGE_NAME:$DATE
+docker push $IMAGE_NAME:latest
+docker rmi $IMAGE_NAME:$DATE
+docker rmi $IMAGE_NAME:latest
 </content>
         <args>
           <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
@@ -36,6 +43,12 @@ docker rmi $IMAGE_NAME
           </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
           <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
             <name>DB_TYPE</name>
+          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+            <name>BRANCH_NAME</name>
+          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+            <name>DATE</name>
           </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
         </args>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>
@@ -66,13 +79,16 @@ docker-jrs-builder.sh $JRS_BUILD_ID build
         <content>BRANCH_NAME=$1
 BRANCH_CE=$2
 BRANCH_PRO=$3
+
 DATE=$(date +%Y-%m-%d)
 JRS_BUILD_ID=$BRANCH_NAME-$DATE
 
 docker-jrs-builder.sh $JRS_BUILD_ID init $BRANCH_CE $BRANCH_PRO
 
 # Save vars to file because passing predefined parameters doesn&apos;t work with variables declared during the build
-echo JRS_BUILD_ID=$JRS_BUILD_ID &gt; dependent-build-parameters
+echo JRS_BUILD_ID=$JRS_BUILD_ID  &gt; dependent-build-parameters
+echo DATE=$DATE                 &gt;&gt; dependent-build-parameters
+echo BRANCH_NAME=$BRANCH_NAME   &gt;&gt; dependent-build-parameters
 </content>
         <args>
           <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
@@ -100,6 +116,60 @@ docker-jrs-builder.sh $JRS_BUILD_ID clean
         <args>
           <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
             <name>JRS_BUILD_ID</name>
+          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+        </args>
+      </org.jenkinsci.plugins.managedscripts.ScriptConfig>
+    </entry>
+    <entry>
+      <string>org.jenkinsci.plugins.managedscripts.ScriptConfig1446500230454</string>
+      <org.jenkinsci.plugins.managedscripts.ScriptConfig>
+        <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1446500230454</id>
+        <name>build-deploy-pb</name>
+        <comment>build &amp; deploy (partial build POC)</comment>
+        <content>set -e
+BRANCH_NAME=$1
+BRANCH_CE=$2
+BRANCH_PRO=$3
+
+JRS_BUILD_ID=pb-$BRANCH_NAME-$BUILD_ID
+
+docker-jrs-builder.sh $JRS_BUILD_ID init $BRANCH_CE $BRANCH_PRO
+. /var/tmp/build-state-$JRS_BUILD_ID.sh
+. /etc/docker-jrs-builder/configuration.sh
+
+# jst init
+docker run --rm --volumes-from $BUILD_DATA_CONTAINER --link nexus:nexus patcher
+
+# jst configure
+docker run --rm \
+        --volumes-from $BUILD_DATA_CONTAINER \
+        --add-host=svnserver.jaspersoft.com:${SVNSERVER_IP} \
+        --add-host=mvnrepo.jaspersoft.com:${MVNREPO_IP} \
+        --link nexus:nexus \
+        rzhilkibaev/jst configure --dbType=postgresql --dbHost=db --appServerType=skipAppServerCheck
+
+# jst build
+docker run --rm \
+        --volumes-from $BUILD_DATA_CONTAINER \
+        --add-host=svnserver.jaspersoft.com:${SVNSERVER_IP} \
+        --add-host=mvnrepo.jaspersoft.com:${MVNREPO_IP} \
+        --link nexus:nexus \
+        rzhilkibaev/jst build
+
+
+#docker-jrs-builder.sh $JRS_BUILD_ID build
+
+docker rm -v $BUILD_DATA_CONTAINER
+</content>
+        <args>
+          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+            <name>BRANCH_NAME</name>
+          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+            <name>BRANCH_CE</name>
+          </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+          <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
+            <name>BRANCH_PRO</name>
           </org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
         </args>
       </org.jenkinsci.plugins.managedscripts.ScriptConfig>

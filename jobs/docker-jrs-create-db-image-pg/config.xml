@@ -17,6 +17,16 @@
           <description></description>
           <defaultValue></defaultValue>
         </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>BRANCH_NAME</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+        <hudson.model.StringParameterDefinition>
+          <name>DATE</name>
+          <description></description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
       </parameterDefinitions>
     </hudson.model.ParametersDefinitionProperty>
   </properties>
@@ -34,6 +44,8 @@
       <buildStepArgs>
         <string>$JRS_BUILD_ID</string>
         <string>postgresql</string>
+        <string>$BRANCH_NAME</string>
+        <string>$DATE</string>
       </buildStepArgs>
       <tokenized>false</tokenized>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
