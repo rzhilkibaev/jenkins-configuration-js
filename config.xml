@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
   <disabledAdministrativeMonitors/>
-  <version>1.634</version>
+  <version>1.639</version>
   <numExecutors>10</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
@@ -71,7 +71,7 @@
       <filterQueue>false</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
     </hudson.model.AllView>
-    <au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView plugin="build-pipeline-plugin@1.4.8">
+    <au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView plugin="build-pipeline-plugin@1.4.9">
       <owner class="hudson" reference="../../.."/>
       <name>azure</name>
       <filterExecutors>true</filterExecutors>
@@ -79,7 +79,7 @@
       <properties class="hudson.model.View$PropertyList"/>
       <gridBuilder class="au.com.centrumsystems.hudson.plugin.buildpipeline.DownstreamProjectGridBuilder">
         <firstJob>docker-jrs-build-azure</firstJob>
-        <firstJobLink>job/docker-jrs-build-azure/</firstJobLink>
+        <firstJobLink>view/pb%20POC/job/docker-jrs-build-azure/</firstJobLink>
       </gridBuilder>
       <noOfDisplayedBuilds>3</noOfDisplayedBuilds>
       <buildViewTitle>azure</buildViewTitle>
@@ -93,7 +93,7 @@
       <refreshFrequency>3</refreshFrequency>
       <showPipelineDefinitionHeader>true</showPipelineDefinitionHeader>
     </au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView>
-    <au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView plugin="build-pipeline-plugin@1.4.8">
+    <au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView plugin="build-pipeline-plugin@1.4.9">
       <owner class="hudson" reference="../../.."/>
       <name>trunk</name>
       <filterExecutors>true</filterExecutors>
@@ -101,7 +101,7 @@
       <properties class="hudson.model.View$PropertyList"/>
       <gridBuilder class="au.com.centrumsystems.hudson.plugin.buildpipeline.DownstreamProjectGridBuilder">
         <firstJob>docker-jrs-build-trunk</firstJob>
-        <firstJobLink>job/docker-jrs-build-trunk/</firstJobLink>
+        <firstJobLink>view/pb%20POC/job/docker-jrs-build-trunk/</firstJobLink>
       </gridBuilder>
       <noOfDisplayedBuilds>3</noOfDisplayedBuilds>
       <buildViewTitle>trunk</buildViewTitle>
@@ -125,30 +125,6 @@
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
         <string>docker-gc</string>
         <string>list-docker-repo-images</string>
-      </jobNames>
-      <jobFilters/>
-      <columns>
-        <hudson.views.StatusColumn/>
-        <hudson.views.WeatherColumn/>
-        <hudson.views.JobColumn/>
-        <hudson.views.LastSuccessColumn/>
-        <hudson.views.LastFailureColumn/>
-        <hudson.views.LastDurationColumn/>
-        <hudson.views.BuildButtonColumn/>
-      </columns>
-      <recurse>false</recurse>
-    </listView>
-    <listView>
-      <owner class="hudson" reference="../../.."/>
-      <name>pb POC</name>
-      <description>Partial Build POC</description>
-      <filterExecutors>true</filterExecutors>
-      <filterQueue>true</filterQueue>
-      <properties class="hudson.model.View$PropertyList"/>
-      <jobNames>
-        <comparator class="hudson.util.CaseInsensitiveComparator" reference="../../../listView/jobNames/comparator"/>
-        <string>docker-jrs-build-adhoc-api-pb</string>
-        <string>docker-jrs-build-trunk-pb</string>
       </jobNames>
       <jobFilters/>
       <columns>
