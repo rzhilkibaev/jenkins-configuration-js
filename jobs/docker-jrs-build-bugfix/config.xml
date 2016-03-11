@@ -12,25 +12,6 @@
         <artifactNumToKeep>-1</artifactNumToKeep>
       </strategy>
     </jenkins.model.BuildDiscarderProperty>
-    <hudson.model.ParametersDefinitionProperty>
-      <parameterDefinitions>
-        <hudson.model.StringParameterDefinition>
-          <name>JRS_BUILD_ID</name>
-          <description></description>
-          <defaultValue></defaultValue>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>BRANCH_NAME</name>
-          <description></description>
-          <defaultValue></defaultValue>
-        </hudson.model.StringParameterDefinition>
-        <hudson.model.StringParameterDefinition>
-          <name>DATE</name>
-          <description></description>
-          <defaultValue></defaultValue>
-        </hudson.model.StringParameterDefinition>
-      </parameterDefinitions>
-    </hudson.model.ParametersDefinitionProperty>
   </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
@@ -38,16 +19,19 @@
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
   <jdk>(System)</jdk>
-  <triggers/>
-  <concurrentBuild>true</concurrentBuild>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>@midnight</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
   <builders>
     <org.jenkinsci.plugins.managedscripts.ScriptBuildStep plugin="managed-scripts@1.2.1">
-      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1445736163289</buildStepId>
+      <buildStepId>org.jenkinsci.plugins.managedscripts.ScriptConfig1445752767740</buildStepId>
       <buildStepArgs>
-        <string>$JRS_BUILD_ID</string>
-        <string>mysql</string>
-        <string>$BRANCH_NAME</string>
-        <string>$DATE</string>
+        <string>bugfix</string>
+        <string>bugfix</string>
+        <string>bugfix</string>
       </buildStepArgs>
       <tokenized>false</tokenized>
     </org.jenkinsci.plugins.managedscripts.ScriptBuildStep>
@@ -57,10 +41,15 @@
       <configs>
         <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
           <configs>
-            <hudson.plugins.parameterizedtrigger.CurrentBuildParameters/>
+            <hudson.plugins.parameterizedtrigger.FileBuildParameters>
+              <propertiesFile>dependent-build-parameters</propertiesFile>
+              <failTriggerOnMissing>true</failTriggerOnMissing>
+              <useMatrixChild>false</useMatrixChild>
+              <onlyExactRuns>false</onlyExactRuns>
+            </hudson.plugins.parameterizedtrigger.FileBuildParameters>
           </configs>
-          <projects>docker-jrs-create-db-image-pg</projects>
-          <condition>FAILED_OR_BETTER</condition>
+          <projects>docker-jrs-build</projects>
+          <condition>UNSTABLE_OR_BETTER</condition>
           <triggerWithNoParameters>false</triggerWithNoParameters>
         </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
       </configs>

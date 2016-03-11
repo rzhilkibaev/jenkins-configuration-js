@@ -7,7 +7,9 @@
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1446054254401</id>
         <name>GET JSON</name>
         <comment></comment>
-        <content>curl --silent -X GET -H &quot;Content-type: application/json&quot; $1 | python -m json.tool</content>
+        <content>set -e
+
+curl --silent -X GET -H &quot;Content-type: application/json&quot; $1 | python -m json.tool</content>
         <args>
           <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
             <name>URL</name>
@@ -37,6 +39,7 @@ docker push $IMAGE_NAME:latest
 docker rmi $IMAGE_NAME:$DATE
 docker rmi $IMAGE_NAME:latest
 </content>
+        <providerId>org.jenkinsci.plugins.managedscripts.ScriptConfig</providerId>
         <args>
           <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
             <name>JRS_BUILD_ID</name>
@@ -76,7 +79,9 @@ docker-jrs-builder.sh $JRS_BUILD_ID build
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1445752767740</id>
         <name>docker-jrs-builder-init</name>
         <comment></comment>
-        <content>BRANCH_NAME=$1
+        <content>set -eo pipefail
+
+BRANCH_NAME=$1
 BRANCH_CE=$2
 BRANCH_PRO=$3
 
@@ -90,6 +95,7 @@ echo JRS_BUILD_ID=$JRS_BUILD_ID  &gt; dependent-build-parameters
 echo DATE=$DATE                 &gt;&gt; dependent-build-parameters
 echo BRANCH_NAME=$BRANCH_NAME   &gt;&gt; dependent-build-parameters
 </content>
+        <providerId>org.jenkinsci.plugins.managedscripts.ScriptConfig</providerId>
         <args>
           <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
             <name>BRANCH_NAME</name>
@@ -109,7 +115,9 @@ echo BRANCH_NAME=$BRANCH_NAME   &gt;&gt; dependent-build-parameters
         <id>org.jenkinsci.plugins.managedscripts.ScriptConfig1445754874305</id>
         <name>docker-jrs-builder-clean</name>
         <comment></comment>
-        <content>JRS_BUILD_ID=$1
+        <content>set -e
+
+JRS_BUILD_ID=$1
 
 docker-jrs-builder.sh $JRS_BUILD_ID clean
 </content>
@@ -161,6 +169,7 @@ docker run --rm \
 
 docker rm -v $BUILD_DATA_CONTAINER
 </content>
+        <providerId>org.jenkinsci.plugins.managedscripts.ScriptConfig</providerId>
         <args>
           <org.jenkinsci.plugins.managedscripts.ScriptConfig_-Arg>
             <name>BRANCH_NAME</name>

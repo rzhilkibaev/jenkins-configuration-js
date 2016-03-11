@@ -1,4 +1,6 @@
 *.log
+logs
+fingerprints
 hudson.model.UpdateCenter.xml
 hudson.scm.CVSSCM.xml
 identity.key.enc

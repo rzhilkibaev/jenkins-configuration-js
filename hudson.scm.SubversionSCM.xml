@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<hudson.scm.SubversionSCM_-DescriptorImpl plugin="subversion@2.5.4">
-  <generation>2</generation>
+<hudson.scm.SubversionSCM_-DescriptorImpl plugin="subversion@2.5.7">
+  <generation>12</generation>
   <mayHaveLegacyPerJobCredentials>false</mayHaveLegacyPerJobCredentials>
   <workspaceFormat>31</workspaceFormat>
   <validateRemoteUpToVar>false</validateRemoteUpToVar>

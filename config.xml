@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
   <disabledAdministrativeMonitors/>
-  <version>1.639</version>
+  <version>1.652</version>
   <numExecutors>10</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
@@ -29,6 +29,7 @@
     <permission>hudson.model.Item.Create:jenkins-admins</permission>
     <permission>hudson.model.Item.Delete:jenkins-admins</permission>
     <permission>hudson.model.Item.Discover:jenkins-admins</permission>
+    <permission>hudson.model.Item.Read:anonymous</permission>
     <permission>hudson.model.Item.Read:jenkins-admins</permission>
     <permission>hudson.model.Item.Workspace:jenkins-admins</permission>
     <permission>hudson.model.Run.Delete:jenkins-admins</permission>
@@ -48,13 +49,13 @@
   <markupFormatter class="hudson.markup.EscapedMarkupFormatter"/>
   <jdks>
     <jdk>
-      <name>jdk1.7.0_79</name>
-      <home>/opt/jdk1.7.0_79</home>
+      <name>jdk7</name>
+      <home>/usr/lib/jvm/java-7-oracle</home>
       <properties/>
     </jdk>
     <jdk>
-      <name>jdk1.8.0_45</name>
-      <home>/opt/jdk1.8.0_45</home>
+      <name>jdk8</name>
+      <home>/usr/lib/jvm/java-8-oracle</home>
       <properties/>
     </jdk>
   </jdks>
@@ -71,29 +72,7 @@
       <filterQueue>false</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
     </hudson.model.AllView>
-    <au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView plugin="build-pipeline-plugin@1.4.9">
-      <owner class="hudson" reference="../../.."/>
-      <name>azure</name>
-      <filterExecutors>true</filterExecutors>
-      <filterQueue>true</filterQueue>
-      <properties class="hudson.model.View$PropertyList"/>
-      <gridBuilder class="au.com.centrumsystems.hudson.plugin.buildpipeline.DownstreamProjectGridBuilder">
-        <firstJob>docker-jrs-build-azure</firstJob>
-        <firstJobLink>view/pb%20POC/job/docker-jrs-build-azure/</firstJobLink>
-      </gridBuilder>
-      <noOfDisplayedBuilds>3</noOfDisplayedBuilds>
-      <buildViewTitle>azure</buildViewTitle>
-      <consoleOutputLinkStyle>New Window</consoleOutputLinkStyle>
-      <cssUrl></cssUrl>
-      <triggerOnlyLatestJob>false</triggerOnlyLatestJob>
-      <alwaysAllowManualTrigger>false</alwaysAllowManualTrigger>
-      <showPipelineParameters>false</showPipelineParameters>
-      <showPipelineParametersInHeaders>false</showPipelineParametersInHeaders>
-      <startsWithParameters>false</startsWithParameters>
-      <refreshFrequency>3</refreshFrequency>
-      <showPipelineDefinitionHeader>true</showPipelineDefinitionHeader>
-    </au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView>
-    <au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView plugin="build-pipeline-plugin@1.4.9">
+    <au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView plugin="build-pipeline-plugin@1.5.1">
       <owner class="hudson" reference="../../.."/>
       <name>trunk</name>
       <filterExecutors>true</filterExecutors>
@@ -101,7 +80,7 @@
       <properties class="hudson.model.View$PropertyList"/>
       <gridBuilder class="au.com.centrumsystems.hudson.plugin.buildpipeline.DownstreamProjectGridBuilder">
         <firstJob>docker-jrs-build-trunk</firstJob>
-        <firstJobLink>view/pb%20POC/job/docker-jrs-build-trunk/</firstJobLink>
+        <firstJobLink>job/docker-jrs-build-trunk/</firstJobLink>
       </gridBuilder>
       <noOfDisplayedBuilds>3</noOfDisplayedBuilds>
       <buildViewTitle>trunk</buildViewTitle>
@@ -125,6 +104,74 @@
         <comparator class="hudson.util.CaseInsensitiveComparator"/>
         <string>docker-gc</string>
         <string>list-docker-repo-images</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <recurse>false</recurse>
+    </listView>
+    <au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView plugin="build-pipeline-plugin@1.5.1">
+      <owner class="hudson" reference="../../.."/>
+      <name>bugfix</name>
+      <filterExecutors>true</filterExecutors>
+      <filterQueue>true</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <gridBuilder class="au.com.centrumsystems.hudson.plugin.buildpipeline.DownstreamProjectGridBuilder">
+        <firstJob>docker-jrs-build-bugfix</firstJob>
+        <firstJobLink>job/docker-jrs-build-bugfix/</firstJobLink>
+      </gridBuilder>
+      <noOfDisplayedBuilds>3</noOfDisplayedBuilds>
+      <buildViewTitle>bugfix</buildViewTitle>
+      <consoleOutputLinkStyle>Lightbox</consoleOutputLinkStyle>
+      <cssUrl></cssUrl>
+      <triggerOnlyLatestJob>false</triggerOnlyLatestJob>
+      <alwaysAllowManualTrigger>false</alwaysAllowManualTrigger>
+      <showPipelineParameters>false</showPipelineParameters>
+      <showPipelineParametersInHeaders>false</showPipelineParametersInHeaders>
+      <startsWithParameters>false</startsWithParameters>
+      <refreshFrequency>3</refreshFrequency>
+      <showPipelineDefinitionHeader>true</showPipelineDefinitionHeader>
+    </au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView>
+    <au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView plugin="build-pipeline-plugin@1.5.1">
+      <owner class="hudson" reference="../../.."/>
+      <name>dc</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <gridBuilder class="au.com.centrumsystems.hudson.plugin.buildpipeline.DownstreamProjectGridBuilder">
+        <firstJob>docker-jrs-build-dc</firstJob>
+        <firstJobLink>job/docker-jrs-build-dc/</firstJobLink>
+      </gridBuilder>
+      <noOfDisplayedBuilds>10</noOfDisplayedBuilds>
+      <buildViewTitle></buildViewTitle>
+      <consoleOutputLinkStyle>New Window</consoleOutputLinkStyle>
+      <cssUrl></cssUrl>
+      <triggerOnlyLatestJob>false</triggerOnlyLatestJob>
+      <alwaysAllowManualTrigger>false</alwaysAllowManualTrigger>
+      <showPipelineParameters>false</showPipelineParameters>
+      <showPipelineParametersInHeaders>false</showPipelineParametersInHeaders>
+      <startsWithParameters>false</startsWithParameters>
+      <refreshFrequency>3</refreshFrequency>
+      <showPipelineDefinitionHeader>true</showPipelineDefinitionHeader>
+    </au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>jasperreports-server-6.2.1</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>jasperreports-server-6.2.1</string>
+        <string>jasperreports-server-6.2.1-postgres9</string>
+        <string>jasperreports-server-6.2.1-tomcat7-openjdk7</string>
       </jobNames>
       <jobFilters/>
       <columns>
